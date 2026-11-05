@@ -15,8 +15,9 @@ export function Hero() {
               <span className="lead-line">Lead.</span>
             </h1>
             <p className="hero-lede">
-              Private deemed to be university located in Kattankulathur,
-              Chennai, Tamil Nadu, India.
+              One of India&apos;s largest campuses, a 250-acre green township
+              near Chennai where students from every state learn, live and build
+              together.
             </p>
 
             <search>
