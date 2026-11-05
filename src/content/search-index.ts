@@ -205,8 +205,55 @@ const sections: SearchDoc[] = [
   },
 ];
 
+// Contact details from srmist.edu.in, so the assistant can point people to a person.
+const contacts: SearchDoc[] = [
+  {
+    title: "Admissions contact",
+    text: "Official admissions email: admissions.india@srmist.edu.in. Only srmist.edu.in is official; SRM does not accept cash or admit through agents.",
+    url: "/study#apply",
+    page: "Study",
+    kind: "Section",
+  },
+  {
+    title: "Campus address",
+    text: "SRM Institute of Science and Technology, SRM Nagar, Kattankulathur, Chengalpattu District, Tamil Nadu 603203.",
+    url: "/about",
+    page: "About",
+    kind: "About",
+  },
+  {
+    title: "Dean of Research contact",
+    text: "Dr. Bernaurdshaw Neppolian, Room 910, Sir C.V. Raman Block. dean.research@srmist.edu.in, +91 44 2741 7142.",
+    url: "/research#phd",
+    page: "Research",
+    kind: "Research",
+  },
+  {
+    title: "Director of Hostels contact",
+    text: "Dr. E. Poovammal, director.hostels@srmist.edu.in. Hostel booking is through the student portal.",
+    url: "/campus#hostels",
+    page: "Campus",
+    kind: "Campus",
+  },
+  {
+    title: "Bus fee and timings",
+    text: "College bus fee is 75,000 rupees a year, not refundable. First spell arrives 7.40 am, leaves 4.20 pm. Second spell arrives 8.30 am, leaves 5.15 pm.",
+    url: "/campus#transport",
+    page: "Campus",
+    kind: "Campus",
+  },
+  {
+    title: "Placements 2025 batch",
+    text: "Career Centre, 2025 batch as on 12 June 2026: 10,190 offers, 4,346 high-paying offers, 1,448 roles, average CTC 6.5 lakh a year, highest 61 lakh a year. 625 companies visit every year.",
+    url: "/about#placements",
+    page: "About",
+    kind: "About",
+  },
+];
+
 export const searchIndex: SearchDoc[] = [
   ...sections,
+  ...contacts,
   ...programmeGroups.map((g) => ({
     title: g.name,
     text: `${g.description}${g.entry ? ` Entrance: ${g.entry}.` : ""}`,

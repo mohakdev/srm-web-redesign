@@ -5,6 +5,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Depth } from "@/components/Depth";
 import { searchIndex, suggestions } from "@/content/search-index";
 import { highlight, prepare, search } from "@/lib/search";
+import { AiAnswer } from "./AiAnswer";
 
 const docs = prepare(searchIndex);
 
@@ -39,6 +40,8 @@ function Marked({ text, query }: { text: string; query: string }) {
 export function SearchApp() {
   const params = useSearchParams();
   const [query, setQuery] = useState(() => params.get("q") ?? "");
+  // The AI answer follows submitted searches only, not every keystroke.
+  const [asked, setAsked] = useState(() => (params.get("q") ?? "").trim());
   const input = useRef<HTMLInputElement>(null);
   const results = useMemo(() => search(docs, query), [query]);
   const trimmed = query.trim();
@@ -68,6 +71,7 @@ export function SearchApp() {
       <SearchHero
         query={query}
         onChange={setQuery}
+        onSubmit={() => setAsked(query.trim())}
         inputRef={input}
         autoFocus={!trimmed}
       />
@@ -80,6 +84,7 @@ export function SearchApp() {
             anywhere on this page.
           </aside>
           <div>
+            {asked && asked === trimmed && <AiAnswer query={asked} />}
             {trimmed ? (
               <p className="search-count">
                 <span className="num">{results.length}</span>{" "}
@@ -127,6 +132,7 @@ export function SearchApp() {
                       className="text-link suggestion"
                       onClick={() => {
                         setQuery(s);
+                        setAsked(s);
                         input.current?.focus();
                       }}
                     >
@@ -148,9 +154,11 @@ export function SearchHero({
   onChange,
   inputRef,
   autoFocus,
+  onSubmit,
 }: {
   query: string;
   onChange?: (q: string) => void;
+  onSubmit?: () => void;
   inputRef?: React.Ref<HTMLInputElement>;
   autoFocus?: boolean;
 }) {
@@ -169,7 +177,10 @@ export function SearchHero({
             action="/search"
             method="get"
             onSubmit={(e) => {
-              if (onChange) e.preventDefault();
+              if (onChange) {
+                e.preventDefault();
+                onSubmit?.();
+              }
             }}
           >
             <svg

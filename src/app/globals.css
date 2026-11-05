@@ -2414,3 +2414,310 @@ html.motion .photo:hover .photo-frame img {
   transform: scale(1.03);
   transition-delay: 0s;
 }
+
+/* ------------------------------------------------------------------
+   AI assistant
+   ------------------------------------------------------------------ */
+.chat-launcher {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 40;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 50px;
+  padding: 0 22px 0 18px;
+  border: 1px solid rgb(255 255 255 / 0.18);
+  border-radius: 999px;
+  background: var(--blue);
+  color: var(--white);
+  font-family: var(--sans);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 14px 34px -14px rgb(7 30 69 / 0.7);
+}
+.chat-launcher svg {
+  color: var(--goldl);
+}
+.chat-launcher:hover {
+  background: #0a4189;
+}
+.chat-panel {
+  position: fixed;
+  right: 24px;
+  bottom: 88px;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  width: min(400px, calc(100vw - 32px));
+  height: min(600px, calc(100vh - 120px));
+  border: 1px solid rgb(255 255 255 / 0.12);
+  border-radius: 16px;
+  background: var(--navy);
+  color: rgb(255 255 255 / 0.82);
+  box-shadow: 0 30px 70px -20px rgb(4 16 40 / 0.65);
+  overflow: hidden;
+}
+.chat-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 20px 14px;
+  border-bottom: 1px solid var(--gold);
+}
+.chat-head h2 {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--white);
+}
+.chat-close {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: rgb(255 255 255 / 0.7);
+  cursor: pointer;
+}
+.chat-close:hover {
+  background: rgb(255 255 255 / 0.08);
+  color: var(--white);
+}
+.chat-log {
+  flex: 1;
+  overflow-y: auto;
+  padding: 18px 20px;
+  overscroll-behavior: contain;
+}
+.chat-intro p {
+  font-size: 15px;
+  line-height: 1.6;
+}
+.chat-intro ul {
+  margin-top: 18px;
+  list-style: none;
+  border-top: 1px solid rgb(255 255 255 / 0.12);
+}
+.chat-intro li {
+  border-bottom: 1px solid rgb(255 255 255 / 0.12);
+}
+.chat-intro button {
+  width: 100%;
+  padding: 12px 0;
+  border: 0;
+  background: none;
+  color: var(--white);
+  font-family: var(--serif);
+  font-size: 17px;
+  text-align: left;
+  cursor: pointer;
+}
+.chat-intro button:hover {
+  color: var(--goldl);
+}
+.chat-q {
+  margin-top: 22px;
+  color: var(--white);
+  font-weight: 600;
+  font-size: 15.5px;
+}
+.chat-q:first-child {
+  margin-top: 0;
+}
+.chat-a {
+  margin-top: 10px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid rgb(255 255 255 / 0.1);
+  font-size: 15px;
+  line-height: 1.65;
+}
+.chat-thinking {
+  color: rgb(255 255 255 / 0.55);
+}
+.chat-thinking::after {
+  content: "...";
+}
+.chat-error {
+  color: #f3b4a8;
+}
+.chat-caret {
+  display: inline-block;
+  width: 7px;
+  height: 1em;
+  margin-left: 2px;
+  vertical-align: -2px;
+  background: var(--goldl);
+}
+.cite-group {
+  white-space: nowrap;
+}
+.cite {
+  display: inline-grid;
+  place-items: center;
+  min-width: 18px;
+  height: 18px;
+  margin-left: 3px;
+  padding: 0 4px;
+  border-radius: 999px;
+  background: rgb(232 199 90 / 0.18);
+  color: var(--goldl);
+  font-family: var(--serif);
+  font-size: 12px;
+  line-height: 1;
+  vertical-align: 2px;
+}
+.chat-sources {
+  margin-top: 12px;
+  list-style: none;
+}
+.chat-sources a {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 5px 0;
+  color: var(--white);
+  font-size: 13.5px;
+}
+.chat-sources .cite {
+  margin-left: 0;
+}
+.chat-sources a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.chat-source-page {
+  margin-left: auto;
+  color: rgb(255 255 255 / 0.5);
+}
+.chat-form {
+  display: flex;
+  gap: 8px;
+  padding: 14px 16px 8px;
+  border-top: 1px solid rgb(255 255 255 / 0.12);
+}
+.chat-form input {
+  flex: 1;
+  min-width: 0;
+  height: 44px;
+  padding: 0 18px;
+  border: 1.5px solid rgb(232 199 90 / 0.6);
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.07);
+  color: var(--white);
+  font-family: var(--serif);
+  font-size: 16px;
+  outline: none;
+}
+.chat-form input:focus {
+  border-color: var(--goldl);
+}
+.chat-form input::placeholder {
+  color: rgb(255 255 255 / 0.5);
+}
+.chat-form .btn {
+  min-height: 44px;
+  padding: 0 20px;
+}
+.chat-form .btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+.chat-note {
+  padding: 0 20px 14px;
+  font-size: 12px;
+  color: rgb(255 255 255 / 0.45);
+}
+@media (max-width: 560px) {
+  .chat-launcher {
+    right: 16px;
+    bottom: 16px;
+  }
+  .chat-panel {
+    right: 8px;
+    left: 8px;
+    bottom: 76px;
+    width: auto;
+    height: calc(100vh - 96px);
+  }
+}
+
+/* AI answer above search results */
+.ai-answer {
+  margin: 4px 0 36px;
+  padding: 22px 24px;
+  border: 1px solid var(--rule);
+  border-left: 2px solid var(--gold);
+  border-radius: 0 16px 16px 0;
+  background: var(--mist);
+}
+.ai-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--blue);
+}
+.ai-label svg {
+  color: var(--gold);
+}
+.ai-text {
+  margin-top: 10px;
+  max-width: 44em;
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--ink);
+}
+.ai-answer .cite {
+  background: rgb(12 77 161 / 0.1);
+  color: var(--blue);
+}
+.ai-answer .chat-thinking {
+  color: var(--soft);
+}
+.ai-answer .chat-caret {
+  background: var(--blue);
+}
+.ai-note {
+  margin-top: 10px;
+  font-size: 12.5px;
+  color: var(--soft);
+}
+
+/* Motion: the panel rises from the launcher; the caret blinks. */
+html.motion .chat-panel {
+  transform-origin: bottom right;
+  animation: chat-in 0.35s var(--ease-out) both;
+}
+html.motion .chat-launcher {
+  transition:
+    background-color 0.25s ease,
+    transform 0.35s var(--ease-out);
+}
+html.motion .chat-launcher:hover {
+  transform: translateY(-2px);
+}
+html.motion .chat-caret {
+  animation: caret 1s steps(2) infinite;
+}
+html.motion .chat-a,
+html.motion .chat-q,
+html.motion .ai-answer {
+  animation: fade-up 0.45s var(--ease-out) both;
+}
+@keyframes chat-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.97);
+  }
+}
+@keyframes caret {
+  to {
+    opacity: 0;
+  }
+}

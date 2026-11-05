@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { ChatWidget } from "@/components/ChatWidget";
 import { MotionController } from "@/components/MotionController";
 import { motionGateScript } from "@/lib/motion-gate";
 import "./globals.css";
@@ -44,6 +45,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       </head>
       <body>
         {children}
+        <ChatWidget />
         <MotionController />
       </body>
     </html>
