@@ -1,0 +1,31 @@
+college,graduating_year,took_offer,eligible_and_looking
+"All colleges",2021,7420,8900
+"All colleges",2022,8110,9350
+"All colleges",2023,8040,9620
+"All colleges",2024,8390,9810
+"All colleges",2025,8820,10040
+"All colleges",2026,9140,10270
+"Engineering",2021,5310,6100
+"Engineering",2022,5820,6380
+"Engineering",2023,5700,6540
+"Engineering",2024,5960,6650
+"Engineering",2025,6240,6790
+"Engineering",2026,6480,6930
+"Management",2021,480,590
+"Management",2022,530,610
+"Management",2023,540,630
+"Management",2024,560,650
+"Management",2025,590,670
+"Management",2026,610,690
+"Science and Humanities",2021,620,960
+"Science and Humanities",2022,690,1010
+"Science and Humanities",2023,710,1040
+"Science and Humanities",2024,760,1060
+"Science and Humanities",2025,790,1080
+"Science and Humanities",2026,820,1100
+"Law",2021,58,92
+"Law",2022,66,98
+"Law",2023,70,101
+"Law",2024,74,104
+"Law",2025,79,110
+"Law",2026,82,115
