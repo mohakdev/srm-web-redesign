@@ -14,7 +14,8 @@ export type Source = Pick<SearchDoc, "title" | "url" | "page">;
 export const LIMITS = {
   messageChars: 500,
   turns: 8,
-  answerTokens: 500,
+  // gpt-oss models think before answering, and that counts against this cap.
+  answerTokens: 1200,
 };
 
 export function groqConfigured() {
@@ -62,6 +63,7 @@ export async function streamAnswer(
   turns: ChatTurn[],
   sources: SearchDoc[],
 ) {
+  const model = process.env.GROQ_MODEL || "openai/gpt-oss-20b";
   const res = await fetch(GROQ_URL, {
     method: "POST",
     headers: {
@@ -69,10 +71,14 @@ export async function streamAnswer(
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      model: process.env.GROQ_MODEL || "llama-3.3-70b-versatile",
+      model,
       stream: true,
       temperature: 0.2,
-      max_tokens: LIMITS.answerTokens,
+      max_completion_tokens: LIMITS.answerTokens,
+      // Reasoning models: keep thinking short so answers start quickly.
+      ...(model.startsWith("openai/gpt-oss")
+        ? { reasoning_effort: "low" }
+        : {}),
       messages: [
         { role: "system", content: systemPrompt(mode, sources) },
         ...turns,
