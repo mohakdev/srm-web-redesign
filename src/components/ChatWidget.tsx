@@ -255,7 +255,12 @@ function SourceList({ sources, text }: { sources: AskSource[]; text: string }) {
     <ol className="chat-sources">
       {cited.map(({ n, s }) => (
         <li key={n}>
-          <a href={s.url}>
+          <a
+            href={s.url}
+            {...(s.url.startsWith("http")
+              ? { target: "_blank", rel: "noopener" }
+              : {})}
+          >
             <span className="cite">{n}</span>
             {s.title}
             <span className="chat-source-page">{s.page}</span>

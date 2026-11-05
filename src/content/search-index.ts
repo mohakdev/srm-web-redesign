@@ -38,7 +38,8 @@ export type SearchDoc = {
     | "Innovation"
     | "About"
     | "Recruiter"
-    | "Disclosure";
+    | "Disclosure"
+    | "Official";
 };
 
 const sections: SearchDoc[] = [

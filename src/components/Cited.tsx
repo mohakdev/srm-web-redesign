@@ -23,7 +23,15 @@ export function Cited({
             {nums.map((n) => {
               const s = sources[Number(n) - 1];
               return s ? (
-                <a key={n} className="cite" href={s.url} title={s.title}>
+                <a
+                  key={n}
+                  className="cite"
+                  href={s.url}
+                  title={s.title}
+                  {...(s.url.startsWith("http")
+                    ? { target: "_blank", rel: "noopener" }
+                    : {})}
+                >
                   {n}
                 </a>
               ) : null;

@@ -2,13 +2,17 @@ import type { SearchDoc } from "@/content/search-index";
 
 /** Lowercase, drop dots, hyphens and apostrophes so "B.Tech" finds "btech". */
 export function normalise(s: string) {
-  return s
-    .toLowerCase()
-    .normalize("NFKD")
-    .replace(/[̀-ͯ]/g, "")
-    .replace(/[.\-'’]/g, "")
-    .replace(/[^a-z0-9]+/g, " ")
-    .trim();
+  return (
+    s
+      .toLowerCase()
+      .normalize("NFKD")
+      .replace(/[̀-ͯ]/g, "")
+      .replace(/[.\-'’]/g, "")
+      .replace(/[^a-z0-9]+/g, " ")
+      // "B. Tech" and "M. Sc" should match "btech" and "msc".
+      .replace(/\b([bm]) (tech|sc|com|arch|des|pharm|ed)\b/g, "$1$2")
+      .trim()
+  );
 }
 
 const SYNONYMS: Record<string, string[]> = {
@@ -27,6 +31,10 @@ const SYNONYMS: Record<string, string[]> = {
   ranking: ["nirf"],
   rankings: ["nirf"],
   engineering: ["btech"],
+  cse: ["computer", "science"],
+  ece: ["electronics", "communication"],
+  eee: ["electrical", "electronics"],
+  mech: ["mechanical"],
   graduate: ["placements", "offers"],
   graduates: ["placements", "offers"],
   salary: ["ctc", "placements"],
@@ -49,6 +57,7 @@ const KIND_WEIGHT: Record<SearchDoc["kind"], number> = {
   About: 1,
   Recruiter: 0,
   Disclosure: 1,
+  Official: 1,
 };
 
 type Prepared = SearchDoc & { nTitle: string; nText: string };
@@ -127,10 +136,30 @@ export function highlight(text: string, query: string) {
 }
 
 const STOPWORDS = new Set(
-  "a an and are as at be by can do does for from how i in is it me my of on or so tell that the there this to was what when where which who why will with you your about any much many give list".split(
+  "a an and are as at be by can do does for from how i in is it me my of on or so tell that the there this to was what when where which who why will with you your about any many give list last year years get got did know".split(
     " ",
   ),
 );
+
+// Words that, in a question, nearly always mean something else on this site.
+const REWRITES: Record<string, string> = {
+  graduates: "placements",
+  alumni: "placements",
+  much: "fees",
+  cost: "fees",
+  costs: "fees",
+  price: "fees",
+  fee: "fees",
+};
+
+// Abbreviations that stand for a whole phrase: a doc containing the phrase
+// counts as a full match for that word.
+const PHRASES: Record<string, string> = {
+  cse: "computer science and engineering",
+  ece: "electronics and communication engineering",
+  eee: "electrical and electronics engineering",
+  mech: "mechanical engineering",
+};
 
 /**
  * Looser ranking for the AI: drops filler words and scores partial matches,
@@ -139,7 +168,8 @@ const STOPWORDS = new Set(
 export function retrieve(docs: Prepared[], query: string, k = 10) {
   const tokens = normalise(query)
     .split(" ")
-    .filter((t) => t && !STOPWORDS.has(t));
+    .filter((t) => t && !STOPWORDS.has(t))
+    .map((t) => REWRITES[t] ?? t);
   if (!tokens.length) return [];
   const scored = docs
     .map((doc) => {
@@ -147,17 +177,25 @@ export function retrieve(docs: Prepared[], query: string, k = 10) {
       let hits = 0;
       for (const t of tokens) {
         let s = scoreToken(doc, t);
+        const phrase = PHRASES[t];
+        if (phrase) {
+          if (doc.nTitle.includes(` ${phrase} `)) s = Math.max(s, 9);
+          else if (doc.nText.includes(` ${phrase} `)) s = Math.max(s, 3);
+        }
         if (!s)
           for (const alt of SYNONYMS[t] ?? [])
             s = Math.max(s, scoreToken(doc, alt) * 0.7);
         if (s) hits++;
         score += s;
       }
+      // Among equal matches the shorter title is the more general one, so
+      // a core programme ranks above its specialisations.
+      const generality = -doc.nTitle.length / 1000;
       return {
         doc,
         score:
           score * (hits / tokens.length) +
-          (hits ? KIND_WEIGHT[doc.kind] * 0.3 : 0),
+          (hits ? KIND_WEIGHT[doc.kind] * 0.3 + generality : 0),
       };
     })
     .filter((r) => r.score > 0)
