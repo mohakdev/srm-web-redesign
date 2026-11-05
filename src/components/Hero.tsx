@@ -15,8 +15,7 @@ export function Hero() {
               <span className="lead-line">Lead.</span>
             </h1>
             <p className="hero-lede">
-              One of India&apos;s largest campuses, a 250-acre green township
-              near Chennai where students from every state learn, live and build
+              One of India&apos;s largest campuses, where students from every state learn, live and build
               together.
             </p>
 
