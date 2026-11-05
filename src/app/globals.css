@@ -187,21 +187,6 @@ a {
   text-decoration-color: currentColor;
 }
 
-/* Concept disclaimer above the masthead. */
-.concept-note {
-  padding: 8px var(--gutter);
-  background: #04142f;
-  color: rgb(255 255 255 / 0.72);
-  font-size: 13px;
-  line-height: 1.45;
-  text-align: center;
-}
-.concept-note a {
-  color: var(--white);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-
 /* ------------------------------------------------------------------
    Masthead
    ------------------------------------------------------------------ */
