@@ -15,9 +15,7 @@ export function Hero() {
               <span className="lead-line">Lead.</span>
             </h1>
             <p className="hero-lede">
-              Nine colleges on one 250-acre campus at Kattankulathur, where a
-              medical school sits next door to a farm and law students share a
-              canteen with engineers.
+              Private deemed to be university located in Kattankulathur, Chennai, Tamil Nadu, India.
             </p>
 
             <search>
