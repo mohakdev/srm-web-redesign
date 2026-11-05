@@ -4,17 +4,16 @@ import { type Recruiter, recruiterCount, recruiters } from "@/content/site";
 function Chip({ recruiter }: { recruiter: Recruiter }) {
   return (
     <li className="chip">
-      {recruiter.logo ? (
+      {recruiter.logo && (
         <Image
           src={recruiter.logo}
-          alt={recruiter.name}
+          alt={recruiter.withName ? "" : recruiter.name}
           width={120}
-          height={22}
+          height={24}
           unoptimized
         />
-      ) : (
-        recruiter.name
       )}
+      {(!recruiter.logo || recruiter.withName) && <span>{recruiter.name}</span>}
     </li>
   );
 }

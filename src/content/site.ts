@@ -32,29 +32,40 @@ export const facts = [
  * Recruiters. Add `logo` (a path under /public) to show an image instead of
  * the name; the chip keeps the same height either way.
  */
-export type Recruiter = { name: string; logo?: string };
+/**
+ * Recruiters shown in the marquee. `logo` is a file in /public/logos (from
+ * Simple Icons or Wikimedia Commons); `withName` adds the name beside marks
+ * that are symbols rather than wordmarks. No logo falls back to the name.
+ */
+export type Recruiter = { name: string; logo?: string; withName?: boolean };
+
+const L = (name: string, file?: string, withName = false): Recruiter => ({
+  name,
+  logo: file ? `/logos/${file}.svg` : undefined,
+  withName,
+});
 
 export const recruiters: Recruiter[] = [
-  "Google",
-  "Microsoft",
-  "Amazon",
-  "Adobe",
-  "Meta",
-  "Oracle",
-  "Deloitte",
-  "Samsung",
-  "IBM",
-  "Qualcomm",
-  "Infosys",
-  "Cognizant",
-  "Morgan Stanley",
-  "Flipkart",
-  "Dell",
-  "HP",
-  "Bosch",
-  "Siemens",
-  "TCS",
-].map((name) => ({ name }));
+  L("Google", "google", true),
+  L("Microsoft", "microsoft", true),
+  L("Amazon", "amazon"),
+  L("Adobe", "adobe"),
+  L("Meta", "meta", true),
+  L("Oracle", "oracle"),
+  L("Deloitte", "deloitte"),
+  L("Samsung", "samsung", true),
+  L("IBM", "ibm"),
+  L("Qualcomm", "qualcomm", true),
+  L("Infosys", "infosys", true),
+  L("Cognizant", "cognizant"),
+  L("Morgan Stanley", "morgan-stanley"),
+  L("Flipkart"),
+  L("Dell", "dell", true),
+  L("HP", "hp", true),
+  L("Bosch", "bosch", true),
+  L("Siemens", "siemens", true),
+  L("TCS", "tcs", true),
+];
 
 // Career Centre: companies visiting every year (srmist.edu.in/about-us).
 export const recruiterCount = "625";

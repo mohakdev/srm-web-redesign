@@ -15,7 +15,8 @@ export function Hero() {
               <span className="lead-line">Lead.</span>
             </h1>
             <p className="hero-lede">
-              Private deemed to be university located in Kattankulathur, Chennai, Tamil Nadu, India.
+              Private deemed to be university located in Kattankulathur,
+              Chennai, Tamil Nadu, India.
             </p>
 
             <search>
