@@ -1392,11 +1392,9 @@ html.motion {
 }
 
 /* ---- Depth layers on navy and blue grounds ---------------------- */
+/* The dot grid shows for everyone: it is a still CSS gradient and costs
+   nothing. The drifting colour fields and parallax are motion-only. */
 .depth {
-  display: none;
-}
-html.motion .depth {
-  display: block;
   position: absolute;
   inset: 0;
   z-index: 0;
@@ -1404,14 +1402,20 @@ html.motion .depth {
   pointer-events: none;
   contain: strict;
 }
-html.motion [data-depth] {
+[data-depth] {
   position: relative;
   overflow: hidden;
   isolation: isolate;
 }
-html.motion [data-depth] > .container {
+[data-depth] > .container {
   position: relative;
   z-index: 1;
+}
+.orb {
+  display: none;
+}
+html.motion .orb {
+  display: block;
 }
 .orb {
   position: absolute;
@@ -1506,7 +1510,7 @@ html.motion [data-depth] > .container {
   );
 }
 /* Inside content sections the colour fields stay quieter than in heroes. */
-html.motion .section .depth {
+.section .depth {
   opacity: 0.55;
 }
 @keyframes drift-a {
