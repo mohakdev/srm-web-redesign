@@ -230,6 +230,10 @@ export const clubGroups: ClubGroup[] = [
     count: 52,
     clubs: [
       { name: "Next Tech Lab", recruiting: true },
+      { name: "ACM Student Chapter" },
+      { name: "GitHub Community" },
+      { name: "QDC" },
+      { name: "Cherry Plus" },
       { name: "Robotics Society" },
       { name: "Formula Student Team", recruiting: true },
       { name: "Aeromodelling Club" },
@@ -248,6 +252,7 @@ export const clubGroups: ClubGroup[] = [
     count: 14,
     clubs: [
       { name: "Entrepreneurship Cell", recruiting: true },
+      { name: "Founders Club" },
       { name: "Product Club" },
       { name: "Venture Investing Society" },
       { name: "Social Enterprise Forum" },
